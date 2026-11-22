@@ -49,7 +49,7 @@ VITE_ONSITE_BOOKING_ENABLED=false
 - Fields: visitor name, company, email, optional phone, feature interests, optional notes, preferred date/time in **Asia/Manila**, meeting mode, required consent, onsite full address when applicable.
 - Dates must be at least 24 hours and no more than 90 days ahead. No calendar availability is checked; staff must confirm requests manually.
 - Horizon HRIS team is based in **Cagayan de Oro City**. The proposed radius center is the **city-center point** (latitude `8.477`, longitude `124.642`), sourced from the [UN geographical names dashboard](https://ungegn.un.org/dashboard/cities/details?id=3218) using NAMRIA coordinates. This does **not** imply the team works at City Hall or a published office address. If an exact operating base is later selected, replace these values before enabling the onsite policy.
-- Onsite mode remains unavailable in the React form until the frontend flag and matching server settings are enabled, the geocoding API key is configured, and the 200 km radius has been verified.
+- Onsite can be selected in the React form for **preview**, but its submit button is disabled until `VITE_ONSITE_BOOKING_ENABLED=true` and matching backend settings are configured, the server-only geocoding key is active, and the 200 km rule has been tested. Online booking is unaffected.
 - Server geocodes the **submitted full address** through Google and computes Haversine straight-line distance from the configured official service center. Requests **over 200 km** are rejected. No visitor-provided distances or coordinates are trusted. Geocoding does not guarantee the requested address is correct; confirm onsite details manually before traveling.
 - Email goes only to the business inbox. Visitor email is used as Reply-To; the visitor is **not** automatically sent an email, to avoid unauthenticated mail abuse.
 - The API needs no email database. Submissions are retained in the receiving mailbox according to its retention policy.
@@ -64,3 +64,12 @@ find src public tests -name '*.php' -exec php -l {} \;
 ```
 
 The tests validate inputs and the distance formula without contacting Gmail or Google. **A real SMTP delivery test and a geocoding test are still required in your hosting environment after secrets and service coordinates are configured.** Do not test delivery using actual employee or payroll data.
+
+## Optional onsite map picker
+
+- When **Onsite demo** is selected, the form shows a map centered on Cagayan de Oro City with a 200 km straight-line radius and allows the visitor to choose a point. The map attempts to fill the address from a reverse lookup, which the visitor must confirm or correct. They can always type a full address if maps are unavailable.
+- The map is loaded on demand and uses **Google Maps JavaScript API** (no extra React UI library). It requires `VITE_GOOGLE_MAPS_BROWSER_KEY` in the website build environment. Use a **separate browser key restricted by HTTP referrer** to your real website and localhost for local testing, and restrict it to Maps JavaScript API. This key is public by design; it is not a credential for SMTP or the server's Geocoding API.
+- The PHP server uses a **different, private** `GOOGLE_GEOCODING_API_KEY` restricted for server use. Backend geocoding and distance validation use the visitor's complete address, **never trust the map's submitted or displayed distance**. Pins, reverse-geocoded addresses, and building entrances may differ, so confirm onsite details before traveling.
+- Google Maps services can incur usage charges and typically require a billing account. Apply API restrictions, usage limits/budgets, and monitor consumption; see https://developers.google.com/maps/documentation/javascript/get-api-key .
+- The 200 km limit is **straight-line distance**, not driving or ferry distance. Cross-island travel and availability are subject to staff confirmation.
+- With no browser key, the form offers a direct Google Maps link and manual address input, but no interactive embedded map. With no verified backend configuration, onsite remains **preview-only and cannot submit**.

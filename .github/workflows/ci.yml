@@ -23,6 +23,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Build website
         run: npm run build
+      - name: Test onsite map distance estimate
+        run: node --test src/utils/onsiteDistance.test.js
 
   php-contract:
     runs-on: ubuntu-latest
