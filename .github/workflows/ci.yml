@@ -23,3 +23,17 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Build website
         run: npm run build
+
+  php-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Lint PHP source
+        run: find server -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Test demo validation and service radius
+        run: php server/tests/demo_test.php
