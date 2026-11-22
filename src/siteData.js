@@ -1,6 +1,6 @@
 // Edit copy, screenshots and contact details here. Never upload real employee/payroll data.
 export const contact = {
-  email: '',
+  email: 'horizonhris.centraljuan@gmail.com',
   phone: '',
   address: '',
   facebook: '',
