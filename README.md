@@ -57,12 +57,12 @@ The responsive **Request a Demo** form asks who is requesting it, what they woul
 
 Automatic email delivery uses a **separate PHP SMTP endpoint**, not the payroll/HRIS backend. The UI is ready, but submitting is **disabled until** the secure PHP endpoint is deployed and `VITE_DEMO_API_URL` is configured. Until then, visitors can request a demo using the existing business email fallback. Follow [server/README.md](server/README.md) for SMTP and PHP deployment steps.
 
-Onsite availability is limited to **200 km straight-line distance** from an official service center. Since that location has not been supplied, onsite choice remains disabled. The server requires configured service-center coordinates and a Google Geocoding API key to validate submitted onsite addresses. Only then enable `VITE_ONSITE_BOOKING_ENABLED=true` at build time. No credentials or API keys should be committed to GitHub.
+Onsite availability is limited to **200 km straight-line distance** from the proposed Cagayan de Oro City-center reference point. Onsite visitors type the meeting address; server-side Google Geocoding verifies its distance before the request can be emailed. Submitting onsite requests remains disabled until this private API is deployed and tested. Never commit credentials or API keys.
 
-## Onsite location picker — preview
+## Onsite meeting address — typed input
 
-The onsite radio option now opens a map/location section for visitors to choose a meeting point around **Cagayan de Oro City** (proposed city-center coordinate **8.477, 124.642**; 200 km straight-line). The visitor can check the approximate distance on the map and confirm a full address. The PHP server re-geocodes the **full address**; it never accepts the browser distance as authority.
+Visitors selecting **Onsite demo** enter the full meeting address manually (building/street, city, province, Philippines). No map, pin picker, or frontend Google Maps key is used.
 
-The map loads on demand from Google Maps JavaScript API if `VITE_GOOGLE_MAPS_BROWSER_KEY` is set in a local/hosting build environment, with an HTTP-referrer-restricted browser API key. Without that key, the form shows a map-setup notice and lets visitors enter the address manually. Google Maps may incur usage charges.
+The proposed 200 km service radius is centered on Cagayan de Oro City. The **PHP server** must independently geocode and check the submitted address before accepting an onsite request; a typed address is not accepted as proof of distance. The server's private `GOOGLE_GEOCODING_API_KEY` is still required for this validation method.
 
-**Onsite requests remain preview-only until** the website API is deployed, `ONSITE_ENABLED=true` and server-only geocoding credentials are configured, the 200 km check is verified, and `VITE_ONSITE_BOOKING_ENABLED=true` is set in the frontend build. This is intentional. Online demo requests remain available once the SMTP API is configured. No new frontend UI libraries or database tables were added.
+Onsite requests remain unavailable for submission until the PHP API, private geocoding credentials, and radius checks have been configured and verified, then `VITE_ONSITE_BOOKING_ENABLED=true` is set. Online demo requests are unaffected. Staff confirms availability separately.

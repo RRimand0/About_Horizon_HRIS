@@ -65,11 +65,8 @@ find src public tests -name '*.php' -exec php -l {} \;
 
 The tests validate inputs and the distance formula without contacting Gmail or Google. **A real SMTP delivery test and a geocoding test are still required in your hosting environment after secrets and service coordinates are configured.** Do not test delivery using actual employee or payroll data.
 
-## Optional onsite map picker
+## Manual onsite address (no map)
 
-- When **Onsite demo** is selected, the form shows a map centered on Cagayan de Oro City with a 200 km straight-line radius and allows the visitor to choose a point. The map attempts to fill the address from a reverse lookup, which the visitor must confirm or correct. They can always type a full address if maps are unavailable.
-- The map is loaded on demand and uses **Google Maps JavaScript API** (no extra React UI library). It requires `VITE_GOOGLE_MAPS_BROWSER_KEY` in the website build environment. Use a **separate browser key restricted by HTTP referrer** to your real website and localhost for local testing, and restrict it to Maps JavaScript API. This key is public by design; it is not a credential for SMTP or the server's Geocoding API.
-- The PHP server uses a **different, private** `GOOGLE_GEOCODING_API_KEY` restricted for server use. Backend geocoding and distance validation use the visitor's complete address, **never trust the map's submitted or displayed distance**. Pins, reverse-geocoded addresses, and building entrances may differ, so confirm onsite details before traveling.
-- Google Maps services can incur usage charges and typically require a billing account. Apply API restrictions, usage limits/budgets, and monitor consumption; see https://developers.google.com/maps/documentation/javascript/get-api-key .
-- The 200 km limit is **straight-line distance**, not driving or ferry distance. Cross-island travel and availability are subject to staff confirmation.
-- With no browser key, the form offers a direct Google Maps link and manual address input, but no interactive embedded map. With no verified backend configuration, onsite remains **preview-only and cannot submit**.
+The form displays a required **Full meeting address** text field when **Onsite demo** is selected. Visitors type the building/street, city, province, and country. The website does not use a map picker or browser Google Maps API key.
+
+The PHP backend continues to use a **private server-side** `GOOGLE_GEOCODING_API_KEY` to resolve the submitted address and verify the 200 km straight-line limit from the configured Cagayan de Oro service reference. Do not trust user-input distances or coordinates. Staff must confirm that the address is accurate and travel is practical. Onsite submission remains disabled until backend verification and SMTP delivery are deployed and tested.

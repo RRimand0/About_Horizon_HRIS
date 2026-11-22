@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { ArrowUpRight, CalendarDays, CheckCircle2, Globe2, Mail, MapPin, Send } from 'lucide-react';
-import OnsiteLocationMap from './OnsiteLocationMap.jsx';
 
 const API_URL = (import.meta.env.VITE_DEMO_API_URL || '').trim();
 const ONSITE_ENABLED = import.meta.env.VITE_ONSITE_BOOKING_ENABLED === 'true';
@@ -41,7 +40,6 @@ export default function DemoRequestForm({ contactEmail }) {
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
-  const [selectedPin, setSelectedPin] = useState(null);
   const minDate = useMemo(minimumDate, []);
   const mailto = contactEmail ? `mailto:${contactEmail}?subject=${encodeURIComponent('Horizon HRIS Demo Request')}` : '';
 
@@ -49,12 +47,6 @@ export default function DemoRequestForm({ contactEmail }) {
     setForm((current) => ({ ...current, [name]: value }));
     setErrors((current) => { const next = { ...current }; delete next[name]; return next; });
     if (status === 'error') setStatus('idle');
-  }
-
-  function pickOnsiteLocation(chosen) {
-    setSelectedPin(chosen);
-    if (chosen.address) setField('onsiteAddress', chosen.address);
-    if (chosen.withinRange === false) setErrors((current) => ({ ...current, onsiteAddress: 'That location is outside our 200 km onsite coverage. Choose a closer location or select Online.' }));
   }
 
   function toggleTopic(topic) {
@@ -76,10 +68,6 @@ export default function DemoRequestForm({ contactEmail }) {
     }
     if (form.meetingMode === 'onsite' && !ONSITE_ENABLED) {
       setErrors({ meetingMode: 'Onsite requests are in preview mode until the server verifies the 200 km service area.' });
-      return;
-    }
-    if (form.meetingMode === 'onsite' && selectedPin?.withinRange === false) {
-      setErrors({ onsiteAddress: 'The selected pin is outside the 200 km service area. Choose a location inside the circle.' });
       return;
     }
     setStatus('sending');
@@ -110,7 +98,6 @@ export default function DemoRequestForm({ contactEmail }) {
       setStatus('success');
       setMessage('Your demo request has been emailed to Horizon HRIS. We’ll reply to confirm a meeting time.');
       setForm(emptyForm);
-      setSelectedPin(null);
     } catch (error) {
       setStatus('error');
       setMessage(error.name === 'AbortError'
@@ -183,16 +170,13 @@ export default function DemoRequestForm({ contactEmail }) {
                   <span className="pl-5 text-[12px] text-muted">Within 200 km of Cagayan de Oro City</span>
                 </label>
               </div>
-              {!ONSITE_ENABLED && <p className="mt-3 text-[12px] leading-5 text-[#8e684e]">You can preview onsite location selection, but sending onsite requests is paused until the server-side 200 km address check is active.</p>}
+              {!ONSITE_ENABLED && <p className="mt-3 text-[12px] leading-5 text-[#8e684e]">Enter the meeting address below. Onsite requests cannot be submitted until the 200 km address verification service is enabled.</p>}
               {form.meetingMode === 'onsite' && (
-                <div className="mt-4">
-                  <OnsiteLocationMap onPick={pickOnsiteLocation} selected={selectedPin} />
-                  <label className={`${fieldLabel} mt-4`}>
-                    <span className="flex items-center gap-2"><MapPin size={16} className="text-brand" aria-hidden="true" /> Exact meeting address <span className="text-[#bd510d]">*</span></span>
-                    <textarea name="onsiteAddress" required minLength={10} maxLength={300} rows={2} value={form.onsiteAddress} onChange={(event) => { setField('onsiteAddress', event.target.value); setSelectedPin(null); }} placeholder="Building / street, city, province, Philippines" className={`${fieldClass} resize-y`} />
-                    <span className="mt-2 block text-[11px] font-normal leading-5 text-muted">Confirm the full address after selecting a pin. The PHP server verifies the address independently, not the map pin or the distance shown above. Road travel may be longer.</span>
-                  </label>
-                </div>
+                <label className={`${fieldLabel} mt-4`}>
+                  <span className="flex items-center gap-2"><MapPin size={16} className="text-brand" aria-hidden="true" /> Full meeting address <span className="text-[#bd510d]">*</span></span>
+                  <input type="text" name="onsiteAddress" autoComplete="street-address" required minLength={10} maxLength={300} value={form.onsiteAddress} onChange={(event) => setField('onsiteAddress', event.target.value)} placeholder="Building / street, city, province, Philippines" className={fieldClass} aria-describedby="onsite-address-help" />
+                  <span id="onsite-address-help" className="mt-2 block text-[11px] font-normal leading-5 text-muted">Type the complete meeting location. Our team is based in Cagayan de Oro City; onsite requests must be within a 200 km straight-line radius and are subject to confirmation.</span>
+                </label>
               )}
               {errors.onsiteAddress && <p role="alert" className="mt-2 text-[12px] text-red-700">{errors.onsiteAddress}</p>}
               {errors.meetingMode && <p role="alert" className="mt-2 text-[12px] text-red-700">{errors.meetingMode}</p>}
@@ -206,11 +190,11 @@ export default function DemoRequestForm({ contactEmail }) {
               <ul className="mt-1 list-inside list-disc">{Object.entries(errors).map(([key, value]) => <li key={key}>{value}</li>)}</ul>
             </div>}
             <label className="flex cursor-pointer items-start gap-3 text-[12px] leading-5 text-[#51554c]"><input type="checkbox" required checked={form.consent} onChange={(event) => setField('consent', event.target.checked)} className="mt-1 h-4 w-4 shrink-0 accent-[#f46b17]" /><span>I agree to be contacted using these details about my Horizon HRIS demo request. <span className="text-red-700">*</span></span></label>
-            <button type="submit" disabled={status === 'sending' || !API_URL || (form.meetingMode === 'onsite' && (!ONSITE_ENABLED || selectedPin?.withinRange === false))} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full bg-brand px-6 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#d85d10] disabled:cursor-not-allowed disabled:bg-[#c6a691] sm:w-auto">
+            <button type="submit" disabled={status === 'sending' || !API_URL || (form.meetingMode === 'onsite' && !ONSITE_ENABLED)} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-full bg-brand px-6 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#d85d10] disabled:cursor-not-allowed disabled:bg-[#c6a691] sm:w-auto">
               <Send size={17} aria-hidden="true" />{status === 'sending' ? 'Sending request…' : 'Send demo request'}
             </button>
             {!API_URL && <p className="mt-3 text-[12px] leading-5 text-[#7b5c43]">Automatic email submissions are being set up. {mailto ? <>For now, <a href={mailto} className="font-bold underline underline-offset-4">request a demo by email</a>.</> : 'Please check back soon.'}</p>}
-            {form.meetingMode === 'onsite' && !ONSITE_ENABLED && <p className="mt-3 text-[12px] leading-5 text-[#8e684e]">Onsite booking is currently preview-only. Choose Online to send an active request when email delivery is configured.</p>}
+            {form.meetingMode === 'onsite' && !ONSITE_ENABLED && <p className="mt-3 text-[12px] leading-5 text-[#8e684e]">Onsite requests are not accepting submissions yet. Choose Online while we finish setting up onsite address verification.</p>}
             {message && <div role="status" aria-live="polite" className={`mt-4 flex items-start gap-2.5 rounded-xl border p-4 text-[13px] leading-6 ${status === 'success' ? 'border-[#b8ddc6] bg-[#f1fbf4] text-[#1c6e39]' : 'border-[#f0c1b5] bg-[#fff5f1] text-[#9e361e]'}`}>
               {status === 'success' ? <CheckCircle2 size={20} className="mt-0.5 shrink-0" aria-hidden="true" /> : <span aria-hidden="true">!</span>}{message}
             </div>}
