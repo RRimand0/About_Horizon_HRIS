@@ -48,7 +48,8 @@ VITE_ONSITE_BOOKING_ENABLED=false
 
 - Fields: visitor name, company, email, optional phone, feature interests, optional notes, preferred date/time in **Asia/Manila**, meeting mode, required consent, onsite full address when applicable.
 - Dates must be at least 24 hours and no more than 90 days ahead. No calendar availability is checked; staff must confirm requests manually.
-- Onsite mode remains unavailable in the React form until the frontend flag and matching server settings are enabled.
+- Horizon HRIS team is based in **Cagayan de Oro City**. The proposed radius center is the **city-center point** (latitude `8.477`, longitude `124.642`), sourced from the [UN geographical names dashboard](https://ungegn.un.org/dashboard/cities/details?id=3218) using NAMRIA coordinates. This does **not** imply the team works at City Hall or a published office address. If an exact operating base is later selected, replace these values before enabling the onsite policy.
+- Onsite mode remains unavailable in the React form until the frontend flag and matching server settings are enabled, the geocoding API key is configured, and the 200 km radius has been verified.
 - Server geocodes the **submitted full address** through Google and computes Haversine straight-line distance from the configured official service center. Requests **over 200 km** are rejected. No visitor-provided distances or coordinates are trusted. Geocoding does not guarantee the requested address is correct; confirm onsite details manually before traveling.
 - Email goes only to the business inbox. Visitor email is used as Reply-To; the visitor is **not** automatically sent an email, to avoid unauthenticated mail abuse.
 - The API needs no email database. Submissions are retained in the receiving mailbox according to its retention policy.

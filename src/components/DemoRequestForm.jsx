@@ -167,10 +167,10 @@ export default function DemoRequestForm({ contactEmail }) {
                 </label>
                 <label className={`flex flex-col gap-2 rounded-xl border p-4 ${ONSITE_ENABLED ? 'cursor-pointer' : 'cursor-not-allowed opacity-65'} ${form.meetingMode === 'onsite' ? 'border-brand bg-[#fff5ed]' : 'border-[#e5e5e1]'}`}>
                   <span className="flex items-center gap-2 text-[14px] font-semibold"><input type="radio" name="meetingMode" checked={form.meetingMode === 'onsite'} onChange={() => setField('meetingMode', 'onsite')} disabled={!ONSITE_ENABLED} className="accent-[#f46b17]" /> Onsite demo</span>
-                  <span className="pl-5 text-[12px] text-muted">Within 200 km of our service location</span>
+                  <span className="pl-5 text-[12px] text-muted">Within 200 km of Cagayan de Oro City</span>
                 </label>
               </div>
-              {!ONSITE_ENABLED && <p className="mt-3 text-[12px] text-[#8e684e]">Onsite bookings will open after the service location and distance verification are configured.</p>}
+              {!ONSITE_ENABLED && <p className="mt-3 text-[12px] text-[#8e684e]">Our team is based in Cagayan de Oro City. Onsite requests will open once the 200 km address check is configured.</p>}
               {form.meetingMode === 'onsite' && ONSITE_ENABLED && <label className={`${fieldLabel} mt-4`}><span className="flex items-center gap-2"><MapPin size={16} className="text-brand" aria-hidden="true" /> Full meeting address <span className="text-[#bd510d]">*</span></span><textarea name="onsiteAddress" required minLength={10} maxLength={300} rows={2} value={form.onsiteAddress} onChange={(event) => setField('onsiteAddress', event.target.value)} placeholder="Street / building, city, province, Philippines" className={`${fieldClass} resize-y`} /><span className="mt-2 block text-[11px] font-normal leading-5 text-muted">The booking service checks this address against the 200 km service radius. Distance is straight-line, not driving distance.</span></label>}
               {errors.onsiteAddress && <p role="alert" className="mt-2 text-[12px] text-red-700">{errors.onsiteAddress}</p>}
               {errors.meetingMode && <p role="alert" className="mt-2 text-[12px] text-red-700">{errors.meetingMode}</p>}
