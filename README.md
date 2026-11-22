@@ -18,7 +18,7 @@ npm run build
 npm run preview
 ```
 
-Deploy the generated `dist/` directory to any static hosting service. Set up an HTTPS domain before making the website public. No environment variables are required for version 1.
+Deploy the generated `dist/` directory to any static hosting service. Set up an HTTPS domain before making the website public. The marketing content works without environment variables. The demo-request form requires frontend build settings and a deployed PHP SMTP endpoint; see the demo request section below.
 
 ## Content, screenshots and contact details
 
@@ -33,7 +33,7 @@ Suggested future assets (PNG or optimized WebP) in `public/images/`:
 
 Drop the three named showcase screenshots in `public/images/` and refresh the site: the product tabs will display them automatically. `product-overview.webp` is optional; the hero deliberately keeps the existing workflow illustration until you enable `productImages.overview` in `src/siteData.js`. Prefer landscape screenshots for scheduling and payroll and a portrait screenshot for mobile kiosk. Do not commit real employee information, salary records, private payroll figures or personal contact details in screenshots. Use sanitized or demonstration records.
 
-The `contact` object intentionally contains blank fields. Inquiry actions are hidden until a real email or inquiry URL is configured. There is no fake contact form.
+The `contact` object contains the verified Horizon HRIS business email. Other contact channels stay blank until provided. The demo request form requires a configured PHP endpoint before it can send automatically.
 
 ## Brand assets
 
@@ -47,7 +47,7 @@ Horizon HRIS is not advertised as self-service SaaS. CSV attendance import is su
 
 The homepage prioritizes a short hero statement and a **conceptual workflow illustration**, then four compact capability cards. The product showcase uses keyboard-accessible tabs so visitors can switch between Scheduling, Payroll, and the Mobile Kiosk instead of scrolling through long repeated sections. The illustration represents the workflow only; it is **not** an actual Horizon HRIS screenshot.
 
-Screenshot paths and text live in `src/siteData.js`. Showcase image paths are preconfigured: add sanitized files under `public/images/` without changing component code. With no overview screenshot configured, the hero retains its conceptual workflow illustration. Contact details remain blank until supplied, and contact links are not displayed without a valid destination.
+Screenshot paths and text live in `src/siteData.js`. Showcase image paths are preconfigured: add sanitized files under `public/images/` without changing component code. With no overview screenshot configured, the hero retains its conceptual workflow illustration. Only the verified business email is published; phone, address, and social links remain blank. Demo booking submission is disabled until the PHP endpoint is configured.
 
 Biometric devices require separately configured real-time integration; CSV attendance import is supported.
 
