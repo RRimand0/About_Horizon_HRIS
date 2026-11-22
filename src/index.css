@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #f46b17;
+  --color-ink: #191b1c;
+  --color-muted: #666a69;
+  --color-paper: #fbfaf7;
+  --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+:root { font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink); font-synthesis: none; }
+html { scroll-behavior: smooth; }
+body { min-width: 320px; margin: 0; }
+::selection { background: #ffd9c2; color: #1e1e1e; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid #e46b27; outline-offset: 3px; }
+section[id] { scroll-margin-top: 88px; }
+
+/* A quiet, faint registration pattern for empty screenshot frames. Not a fabricated UI. */
+.screenshot-empty {
+  background-color: #f6f5f2;
+  background-image: radial-gradient(#dedbd4 0.7px, transparent 0.7px);
+  background-size: 20px 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
