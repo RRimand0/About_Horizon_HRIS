@@ -9,10 +9,10 @@ export const contact = {
 };
 
 export const productImages = {
-  overview: '', // e.g. '/images/product-overview.webp'
-  scheduling: '', // e.g. '/images/scheduling-attendance.webp'
-  payroll: '', // e.g. '/images/payroll-management.webp'
-  kiosk: '', // e.g. '/images/mobile-kiosk.webp'
+  overview: '', // Optional: enable only when a real overview screenshot is provided. Until then, show the workflow illustration.
+  scheduling: '/images/scheduling-attendance.webp', // Placeholder appears until this file exists.
+  payroll: '/images/payroll-management.webp', // Placeholder appears until this file exists.
+  kiosk: '/images/mobile-kiosk.webp', // Placeholder appears until this file exists.
 };
 
 export const capabilities = [
