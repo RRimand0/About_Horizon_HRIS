@@ -19,6 +19,7 @@ import {
   X,
 } from 'lucide-react';
 import { capabilities, contact, productImages, showcases } from './siteData';
+import DemoRequestForm from './components/DemoRequestForm.jsx';
 
 const links = [
   { label: 'Features', href: '#features' },
@@ -33,11 +34,7 @@ const iconMap = {
   wallet: WalletCards,
 };
 
-const safeHttps = (value = '') => /^https:\/\/[^\s]+$/i.test(value.trim()) ? value.trim() : '';
-const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email?.trim() ?? '') ? contact.email.trim() : '';
-const inquiryUrl = safeHttps(contact.inquiryUrl) || (email ? `mailto:${email}` : '');
-const demoUrl = inquiryUrl.startsWith('mailto:') ? `${inquiryUrl}?subject=${encodeURIComponent('Horizon HRIS Demo Request')}` : inquiryUrl;
-const navLinks = inquiryUrl ? [...links, { label: 'Contact', href: '#contact' }] : links;
+const navLinks = [...links, { label: 'Demo', href: '#demo' }];
 
 function Brand({ footer = false }) {
   return (
@@ -65,8 +62,8 @@ function Header() {
         <nav aria-label="Primary navigation" className="hidden items-center gap-9 md:flex">
           {navLinks.map(({ label, href }) => <a key={href} href={href} className="text-[13px] font-semibold text-[#565852] transition-colors hover:text-brand">{label}</a>)}
         </nav>
-        <a href={demoUrl || '#system'} {...(demoUrl.startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="hidden min-h-10 items-center gap-2 rounded-full bg-brand px-5 py-2 text-[12px] font-semibold text-white transition-colors hover:bg-[#d95c0c] md:inline-flex">
-          {demoUrl ? 'Request a Demo' : 'Explore Horizon'} <ArrowUpRight size={16} aria-hidden="true" />
+        <a href="#demo" className="hidden min-h-10 items-center gap-2 rounded-full bg-brand px-5 py-2 text-[12px] font-semibold text-white transition-colors hover:bg-[#d95c0c] md:inline-flex">
+          Request a Demo <ArrowUpRight size={16} aria-hidden="true" />
         </a>
         <button type="button" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} aria-controls="mobile-menu" aria-expanded={open} className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#e4e0d8] bg-white md:hidden">
           {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
@@ -74,7 +71,7 @@ function Header() {
       </div>
       {open && <nav id="mobile-menu" aria-label="Mobile navigation" className="border-t border-[#e7e3da] bg-paper px-5 pb-5 pt-2 shadow-sm md:hidden">
         {navLinks.map(({ label, href }) => <a key={href} href={href} onClick={() => setOpen(false)} className="flex min-h-12 items-center border-b border-[#e7e3da] text-sm font-semibold text-ink">{label}</a>)}
-        <a href={demoUrl || '#system'} {...(demoUrl.startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} onClick={() => setOpen(false)} className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand">{demoUrl ? 'Request a Demo' : 'Explore Horizon'} <ArrowUpRight size={17} aria-hidden="true" /></a>
+        <a href="#demo" onClick={() => setOpen(false)} className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand">Request a Demo <ArrowUpRight size={17} aria-hidden="true" /></a>
       </nav>}
     </header>
   );
@@ -143,7 +140,7 @@ function Hero() {
         </h1>
         <p className="mt-6 max-w-[440px] text-[15px] leading-[1.75] text-muted sm:text-[17px]">Keep people operations organized across your teams, brands, and branches.</p>
         <div className="mt-7 flex flex-wrap gap-3">
-          <a href={demoUrl || '#system'} {...(demoUrl.startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="inline-flex min-h-12 items-center gap-3 rounded-full bg-brand px-6 py-3 text-[13px] font-bold text-white transition-colors hover:bg-[#d95c0c]">{demoUrl ? 'Request a Demo' : 'See how it works'} <ArrowUpRight size={18} aria-hidden="true" /></a>
+          <a href="#demo" className="inline-flex min-h-12 items-center gap-3 rounded-full bg-brand px-6 py-3 text-[13px] font-bold text-white transition-colors hover:bg-[#d95c0c]">Request a Demo <ArrowUpRight size={18} aria-hidden="true" /></a>
           <a href="#system" className="inline-flex min-h-12 items-center gap-2 rounded-full border border-[#dbd8d1] bg-white px-5 py-3 text-[13px] font-semibold text-ink transition-colors hover:border-[#aaa69e]">Explore the product <ArrowRight size={16} aria-hidden="true" /></a>
         </div>
         <div className="mt-8 flex items-center gap-2.5 border-t border-[#e8e4dc] pt-5 text-xs font-medium text-[#777970]"><Check size={17} className="shrink-0 text-brand" aria-hidden="true" /> HR Simplified, Results Amplified.</div>
@@ -247,8 +244,7 @@ function About() {
 }
 
 function Contact() {
-  if (!inquiryUrl) return null;
-  return <section id="contact" className="bg-[#fff0e5] py-14 sm:py-16"><div className="mx-auto flex max-w-[1240px] flex-col justify-between gap-5 px-5 sm:px-8 md:flex-row md:items-center lg:px-10"><div><Eyebrow>Get in touch</Eyebrow><h2 className="mt-3 text-[clamp(1.8rem,3vw,2.7rem)] font-semibold leading-tight tracking-[-0.045em]">See Horizon HRIS in action.</h2><p className="mt-2 text-[13px] text-[#6a5141]">Request a demo by email. No online registration needed.</p></div><a href={demoUrl} {...(inquiryUrl.startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="inline-flex min-h-12 items-center justify-center gap-2 self-start rounded-full bg-ink px-6 text-[13px] font-bold text-white hover:bg-brand">Request a Demo <ArrowUpRight size={17} aria-hidden="true" /></a></div></section>;
+  return <DemoRequestForm contactEmail={contact.email} />;
 }
 
 function Footer() {
