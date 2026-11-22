@@ -42,3 +42,11 @@ The official uploaded symbol and horizontal logo are optimized as WebP in `publi
 ## Product limits
 
 Horizon HRIS is not advertised as self-service SaaS. CSV attendance import is supported; real-time biometric device integration requires separate setup and configuration and is not included in the standard package. Only publish product claims that match the actual HRIS implementation.
+
+## UI revision V2 — quicker to scan
+
+The homepage prioritizes a short hero statement and a **conceptual workflow illustration**, then four compact capability cards. The product showcase uses keyboard-accessible tabs so visitors can switch between Scheduling, Payroll, and the Mobile Kiosk instead of scrolling through long repeated sections. The illustration represents the workflow only; it is **not** an actual Horizon HRIS screenshot.
+
+Screenshot paths and text live in `src/siteData.js`. Add sanitized screenshots under `public/images/` and set the appropriate `productImages` values. With no overview screenshot, the hero retains its conceptual workflow illustration. Contact details remain blank until supplied, and contact links are not displayed without a valid destination.
+
+Biometric devices require separately configured real-time integration; CSV attendance import is supported.

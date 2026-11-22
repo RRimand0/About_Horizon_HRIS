@@ -2,8 +2,8 @@
 
 @theme {
   --color-brand: #f46b17;
-  --color-ink: #191b1c;
-  --color-muted: #666a69;
+  --color-ink: #1b1e1d;
+  --color-muted: #626661;
   --color-paper: #fbfaf7;
   --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
 }
@@ -15,16 +15,20 @@ body { min-width: 320px; margin: 0; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid #e46b27; outline-offset: 3px; }
-section[id] { scroll-margin-top: 88px; }
+section[id] { scroll-margin-top: 78px; }
 
-/* A quiet, faint registration pattern for empty screenshot frames. Not a fabricated UI. */
+/* Visual-only accents: workflow diagram is not a simulated product interface. */
+.workflow-visual {
+  background-image: radial-gradient(circle at 14% 80%, rgba(244,107,23,.12), transparent 37%), radial-gradient(rgba(255,255,255,.055) .7px, transparent .7px);
+  background-size: 100% 100%, 19px 19px;
+}
 .screenshot-empty {
-  background-color: #f6f5f2;
-  background-image: radial-gradient(#dedbd4 0.7px, transparent 0.7px);
+  background-color: #f7f6f2;
+  background-image: radial-gradient(#e3dfd7 .8px, transparent .8px);
   background-size: 20px 20px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
