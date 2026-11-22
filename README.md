@@ -22,7 +22,7 @@ Deploy the generated `dist/` directory to any static hosting service. Set up an 
 
 ## Content, screenshots and contact details
 
-Update `src/siteData.js` to edit feature descriptions, screenshot paths, and business contact information. Screenshot values are **empty by default**. The website will display intentional placeholders until images are supplied.
+Update `src/siteData.js` to edit feature descriptions and business contact information. The three product showcase paths are already connected, and **a neutral placeholder displays until the named image is added**. No React changes are necessary when supplying these screenshots.
 
 Suggested future assets (PNG or optimized WebP) in `public/images/`:
 
@@ -31,7 +31,7 @@ Suggested future assets (PNG or optimized WebP) in `public/images/`:
 - `payroll-management.webp`
 - `mobile-kiosk.webp`
 
-Then set the paths in `productImages`. Do not commit real employee information, salary records, private payroll figures or personal contact details in screenshots. Use sanitized or demonstration records.
+Drop the three named showcase screenshots in `public/images/` and refresh the site: the product tabs will display them automatically. `product-overview.webp` is optional; the hero deliberately keeps the existing workflow illustration until you enable `productImages.overview` in `src/siteData.js`. Prefer landscape screenshots for scheduling and payroll and a portrait screenshot for mobile kiosk. Do not commit real employee information, salary records, private payroll figures or personal contact details in screenshots. Use sanitized or demonstration records.
 
 The `contact` object intentionally contains blank fields. Inquiry actions are hidden until a real email or inquiry URL is configured. There is no fake contact form.
 
@@ -47,6 +47,6 @@ Horizon HRIS is not advertised as self-service SaaS. CSV attendance import is su
 
 The homepage prioritizes a short hero statement and a **conceptual workflow illustration**, then four compact capability cards. The product showcase uses keyboard-accessible tabs so visitors can switch between Scheduling, Payroll, and the Mobile Kiosk instead of scrolling through long repeated sections. The illustration represents the workflow only; it is **not** an actual Horizon HRIS screenshot.
 
-Screenshot paths and text live in `src/siteData.js`. Add sanitized screenshots under `public/images/` and set the appropriate `productImages` values. With no overview screenshot, the hero retains its conceptual workflow illustration. Contact details remain blank until supplied, and contact links are not displayed without a valid destination.
+Screenshot paths and text live in `src/siteData.js`. Showcase image paths are preconfigured: add sanitized files under `public/images/` without changing component code. With no overview screenshot configured, the hero retains its conceptual workflow illustration. Contact details remain blank until supplied, and contact links are not displayed without a valid destination.
 
 Biometric devices require separately configured real-time integration; CSV attendance import is supported.
