@@ -50,3 +50,11 @@ The homepage prioritizes a short hero statement and a **conceptual workflow illu
 Screenshot paths and text live in `src/siteData.js`. Showcase image paths are preconfigured: add sanitized files under `public/images/` without changing component code. With no overview screenshot configured, the hero retains its conceptual workflow illustration. Contact details remain blank until supplied, and contact links are not displayed without a valid destination.
 
 Biometric devices require separately configured real-time integration; CSV attendance import is supported.
+
+## Demo request form (Who / What / When / How)
+
+The responsive **Request a Demo** form asks who is requesting it, what they would like to see, their preferred date/time in Philippine time, and whether they prefer online or onsite. The request is **not** an automatic calendar booking; Horizon HRIS confirms availability separately.
+
+Automatic email delivery uses a **separate PHP SMTP endpoint**, not the payroll/HRIS backend. The UI is ready, but submitting is **disabled until** the secure PHP endpoint is deployed and `VITE_DEMO_API_URL` is configured. Until then, visitors can request a demo using the existing business email fallback. Follow [server/README.md](server/README.md) for SMTP and PHP deployment steps.
+
+Onsite availability is limited to **200 km straight-line distance** from an official service center. Since that location has not been supplied, onsite choice remains disabled. The server requires configured service-center coordinates and a Google Geocoding API key to validate submitted onsite addresses. Only then enable `VITE_ONSITE_BOOKING_ENABLED=true` at build time. No credentials or API keys should be committed to GitHub.
