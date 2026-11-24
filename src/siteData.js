@@ -9,10 +9,12 @@ export const contact = {
 };
 
 export const productImages = {
-  overview: '', // Optional: enable only when a real overview screenshot is provided. Until then, show the workflow illustration.
-  scheduling: '/images/scheduling-attendance.webp', // Placeholder appears until this file exists.
-  payroll: '/images/payroll-management.webp', // Placeholder appears until this file exists.
-  kiosk: '/images/mobile-kiosk.webp', // Placeholder appears until this file exists.
+  overview: '', // Keep the connected-workflow illustration in the hero.
+  dashboard: '/images/dashboard-calendar.webp',
+  employees: '/images/employee-management.webp',
+  scheduling: '/images/scheduling-attendance.webp',
+  payroll: '/images/payroll-management.webp',
+  kiosk: '', // No approved mobile screenshot yet.
 };
 
 export const capabilities = [
@@ -44,29 +46,51 @@ export const capabilities = [
 
 export const showcases = [
   {
-    number: '01 / SCHEDULING & ATTENDANCE',
-    tabTitle: 'Scheduling',
+    number: '01 / DASHBOARD',
+    tabTitle: 'Dashboard',
+    title: 'Your HR at a glance.',
+    description: 'Keep track of everyday tasks and workforce schedules in one workspace.',
+    bullets: ['Calendar', 'Tasks', 'Shift overview'],
+    image: productImages.dashboard,
+    imageLabel: 'Dashboard calendar',
+    alt: 'Cropped Horizon HRIS calendar and tasks interface',
+    variant: 'wide',
+  },
+  {
+    number: '02 / EMPLOYEE MANAGEMENT',
+    tabTitle: 'Employees',
+    title: 'Keep employee records organized.',
+    description: 'View employee profiles, positions, and employment status in one place.',
+    bullets: ['Employee records', 'Positions', 'Employment status'],
+    image: productImages.employees,
+    imageLabel: 'Employee management',
+    alt: 'Cropped employee profile with fictional sample details',
+    variant: 'wide',
+  },
+  {
+    number: '03 / SCHEDULING & ATTENDANCE',
+    tabTitle: 'Attendance',
     title: 'Plan the workweek.',
     description: 'Manage shifts, attendance, and worktime configurations in one workflow.',
     bullets: ['Shift scheduling', 'Attendance', 'Worktime rules'],
     image: productImages.scheduling,
     imageLabel: 'Scheduling & attendance',
-    alt: 'Horizon HRIS scheduling and attendance interface',
+    alt: 'Cropped attendance time fields with illustrative punch times',
     variant: 'wide',
   },
   {
-    number: '02 / PAYROLL',
+    number: '04 / PAYROLL',
     tabTitle: 'Payroll',
     title: 'Payroll and payslips.',
     description: 'Keep payroll information and employee payslips in the same HR system.',
     bullets: ['Payroll management', 'Payslips', 'Employee records'],
     image: productImages.payroll,
     imageLabel: 'Payroll management',
-    alt: 'Horizon HRIS payroll management interface',
+    alt: 'Cropped payroll summary with illustrative amounts',
     variant: 'wide',
   },
   {
-    number: '03 / EMPLOYEE SELF-SERVICE',
+    number: '05 / EMPLOYEE SELF-SERVICE',
     tabTitle: 'Mobile kiosk',
     title: 'Requests on mobile.',
     description: 'Let employees submit leave and overtime requests through the mobile kiosk.',

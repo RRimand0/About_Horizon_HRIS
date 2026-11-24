@@ -1,10 +1,11 @@
-Horizon HRIS screenshot slots are already wired to these exact paths:
-- scheduling-attendance.webp (landscape)
-- payroll-management.webp (landscape)
-- mobile-kiosk.webp (portrait)
+Horizon HRIS public product previews
 
-Add these sanitized images to this folder later. Until each file exists, the website shows its existing neutral placeholder. No React edits are needed for these three images.
+Approved marketing crops derived from the supplied screenshots:
+- dashboard-calendar.webp — cropped calendar only
+- employee-management.webp — fictional employee name and role; identifiers removed
+- scheduling-attendance.webp — selected time fields, all original punch times replaced
+- payroll-management.webp — selected summary fields, all original amounts replaced
 
-Optional: product-overview.webp can replace the hero workflow graphic, but only after enabling productImages.overview in src/siteData.js.
+Mobile kiosk: no screenshot supplied; the tab invites visitors to a free demo. To add an approved portrait screenshot, place mobile-kiosk.webp here and set productImages.kiosk in src/siteData.js.
 
-Never upload actual employee names, IDs, payroll details, payslips, phone numbers, or other personal information. Use demo records or redact sensitive content.
+The hero retains the workflow illustration. Images are compact WebP excerpts, not full pages or live records. Never commit raw screenshots, personal information, biometrics, wages, or internal configurations. Review new assets before publishing.

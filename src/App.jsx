@@ -120,11 +120,11 @@ function ScreenshotFrame({ src, alt, label, variant = 'wide', featured = false }
       <span className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#99958c]">Horizon HRIS</span>
       <span className="w-10" aria-hidden="true" />
     </div>
-    <div className={`screenshot-empty relative flex items-center justify-center overflow-hidden ${portrait ? 'min-h-[290px] sm:min-h-[340px]' : featured ? 'min-h-[280px] sm:min-h-[340px]' : 'aspect-[16/10] min-h-[260px]'}`}>
-      {available ? <img src={src} alt={alt} onError={() => setFailed(true)} loading={featured ? 'eager' : 'lazy'} decoding="async" className={`relative z-10 h-full w-full object-contain ${portrait ? 'absolute inset-0 p-5' : 'absolute inset-0'}`} /> : <div className="relative z-10 flex flex-col items-center gap-2 px-5 text-center">
+    <div className={`screenshot-empty relative flex items-center justify-center overflow-hidden p-4 sm:p-6 ${portrait ? 'min-h-[290px] sm:min-h-[340px]' : featured ? 'min-h-[280px] sm:min-h-[340px]' : 'aspect-[16/10] min-h-[260px]'}`}>
+      {available ? <img src={src} alt={alt} onError={() => setFailed(true)} loading={featured ? 'eager' : 'lazy'} decoding="async" className={`relative z-10 block h-auto w-full object-contain ${portrait ? 'max-h-[340px] max-w-[240px]' : 'max-h-[320px] max-w-[420px]'}`} /> : <div className="relative z-10 flex flex-col items-center gap-2 px-5 text-center">
         <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#e9d2c4] bg-white text-brand shadow-sm"><ImageIcon size={27} strokeWidth={1.5} aria-hidden="true" /></div>
         <span className="text-[13px] font-semibold text-[#565752]">{label}</span>
-        <span className="text-[11px] font-medium text-[#8f8c85]">Screenshot slot · add in Phase 2</span>
+        <span className="text-[11px] font-medium text-[#8f8c85]">Explore this feature in a free demo.</span>
       </div>}
     </div>
   </div>;
@@ -148,7 +148,7 @@ function Hero() {
       <div className="relative min-w-0">
         <div className="pointer-events-none absolute -right-4 -top-4 h-24 w-24 rounded-tr-[26px] border-r-2 border-t-2 border-brand sm:-right-5 sm:-top-5" aria-hidden="true" />
         {productImages.overview ? <ScreenshotFrame src={productImages.overview} alt="Overview of the Horizon HRIS application" label="Product overview" featured /> : <WorkflowVisual />}
-        <p className="mt-4 px-1 text-[11px] font-medium text-[#848077]">A visual guide to the workflow. Real system screens will be added separately.</p>
+        <p className="mt-4 px-1 text-[11px] font-medium text-[#848077]">One connected workflow, from scheduling to payroll.</p>
       </div>
     </div>
   </section>;
@@ -193,7 +193,7 @@ function Product() {
     <div className="mx-auto max-w-[1240px] px-5 sm:px-8 lg:px-10">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end md:gap-10">
         <div><Eyebrow>Inside Horizon HRIS</Eyebrow><h2 className="mt-4 max-w-[520px] text-[clamp(2.3rem,3.8vw,3.7rem)] font-semibold leading-[1.08] tracking-[-0.06em]">See the workflows.</h2></div>
-        <p className="max-w-[350px] text-[14px] leading-6 text-muted">Choose what matters to your team. Actual product screenshots can be added when ready.</p>
+        <p className="max-w-[350px] text-[14px] leading-6 text-muted">Explore selected product previews. Full workflows are available in a free demo.</p>
       </div>
       <div role="tablist" aria-label="Horizon HRIS product areas" className="mt-9 flex gap-2 overflow-x-auto pb-2 sm:gap-3">
         {showcases.map((showcase, index) => <button key={showcase.number} id={`product-tab-${index}`} type="button" role="tab" aria-selected={active === index} aria-controls="product-panel" tabIndex={active === index ? 0 : -1} onClick={() => setActive(index)} onKeyDown={(event) => onTabKeyDown(event, index)} className={`inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full border px-5 py-3 text-[12px] font-bold transition-colors sm:text-[13px] ${active === index ? 'border-ink bg-ink text-white' : 'border-[#dedbd4] bg-white text-[#525550] hover:border-brand hover:text-brand'}`}>
@@ -209,7 +209,8 @@ function Product() {
         </div>
         <div className={`min-w-0 ${item.variant === 'portrait' ? 'mx-auto w-full max-w-[420px]' : 'w-full'}`}><ScreenshotFrame key={item.number} src={item.image} alt={item.alt} label={item.imageLabel} variant={item.variant} featured /></div>
       </div>
-      <p className="mt-4 text-right text-[11px] text-[#858177]">{String(active + 1).padStart(2, '0')} / {String(showcases.length).padStart(2, '0')}</p>
+      <p className="mt-3 text-[11px] leading-5 text-[#626661]">Selected interface excerpts. Sample names, time entries and payroll amounts are illustrative.</p>
+      <p className="mt-2 text-right text-[11px] text-[#858177]">{String(active + 1).padStart(2, '0')} / {String(showcases.length).padStart(2, '0')}</p>
     </div>
   </section>;
 }
