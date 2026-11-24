@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #f46b17;
+  --color-ink: #1b1e1d;
+  --color-muted: #626661;
+  --color-paper: #fbfaf7;
+  --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+:root { font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink); font-synthesis: none; }
+html { scroll-behavior: smooth; }
+body { min-width: 320px; margin: 0; }
+::selection { background: #ffd9c2; color: #1e1e1e; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid #e46b27; outline-offset: 3px; }
+section[id] { scroll-margin-top: 78px; }
+
+/* Visual-only accents: workflow diagram is not a simulated product interface. */
+.workflow-visual {
+  background-image: radial-gradient(circle at 14% 80%, rgba(244,107,23,.12), transparent 37%), radial-gradient(rgba(255,255,255,.055) .7px, transparent .7px);
+  background-size: 100% 100%, 19px 19px;
+}
+.screenshot-empty {
+  background-color: #f7f6f2;
+  background-image: radial-gradient(#e3dfd7 .8px, transparent .8px);
+  background-size: 20px 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
